@@ -1,15 +1,18 @@
 import java.util.Scanner;
 
-interface TicTacToe{
+interface TicTacToeIF {
     static char[] board =new char[10];
 
-    public void board();
 
+    void board();
     void chooseLetter();
     void displayBoard();
+    void playerMove();
 }
 
-class TicTacToeService implements TicTacToe {
+class TicTacToeIFService implements TicTacToeIF {
+    char player_input;
+    char computer_input;
 
     @Override
     public void board() {
@@ -21,8 +24,6 @@ class TicTacToeService implements TicTacToe {
     @Override
     public void chooseLetter() {
 
-        char player_input;
-        char computer_input;
 
         Scanner sc =new Scanner(System.in);
         System.out.println("Choose a Letter Between X or O");
@@ -38,18 +39,37 @@ class TicTacToeService implements TicTacToe {
         System.out.println("-------");
         System.out.println(board[7]+"||"+board[8]+"||"+board[9]);
     }
+
+    @Override
+    public void playerMove() {
+        int players_move;
+        while(true){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Choose Board Location From 1 to 9");
+            players_move = sc.nextInt();
+            if(board[players_move]==' '){
+                break;
+            }
+
+        }
+        System.out.println("Player Move = "+"INDEX = "+players_move);
+        board[players_move]=player_input;
+    }
 }
 
 
-public class Main {
+public class TicTacToeMain {
     public static void main(String[] args) {
 
         System.out.println("---Welcome To The Tic Tac Toe Game---");
         System.out.println("--------------------------------------");
-        TicTacToeService play = new TicTacToeService();
+        TicTacToeIFService play = new TicTacToeIFService();
 
         play.board();
         play.chooseLetter();
         play.displayBoard();
+        play.playerMove();
+        play.displayBoard();
+
     }
 }
