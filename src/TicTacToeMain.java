@@ -10,6 +10,7 @@ interface TicTacToeIF {
     void displayBoard();
     void playerMove();
     void checkFreeSpace();
+    void checkWinner();
 }
 
 class TicTacToeService implements TicTacToeIF {
@@ -92,15 +93,35 @@ class TicTacToeService implements TicTacToeIF {
             System.out.println("Spaces Available= " + remaining_space);
         }
     }
+
+    @Override
+    public void checkWinner() {
+        if ((board[1] == player_input && board[2] == player_input && board[3] == player_input ||
+                board[1] == player_input && board[4] == player_input && board[7] == player_input ||
+                board[1] == player_input && board[5] == player_input && board[9] == player_input ||
+                board[3] == player_input && board[5] == player_input && board[7] == player_input ||
+                board[2] == player_input && board[5] == player_input && board[8] == player_input ||
+                board[3] == player_input && board[6] == player_input && board[9] == player_input ||
+                board[4] == player_input && board[5] == player_input && board[6] == player_input ||
+                board[7] == player_input && board[8] == player_input && board[9] == player_input
+        )){
+            System.out.println("Player Wins The Game");
+            System.exit(0);
+        }
+    }
 }
 
 
 public class TicTacToeMain {
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("---Welcome To The Tic Tac Toe Game---");
         System.out.println("--------------------------------------");
+
         TicTacToeService play = new TicTacToeService();
+
 
         //Creating The Board
 
@@ -114,9 +135,16 @@ public class TicTacToeMain {
             play.displayBoard();
             play.checkFreeSpace();
         }
-        play.playerMove();
-        play.displayBoard();
-        play.checkFreeSpace();
+
+        while(true){
+
+            play.playerMove();
+            play.displayBoard();
+            play.checkFreeSpace();
+            play.checkWinner();
+
+
+        }
 
     }
 }
