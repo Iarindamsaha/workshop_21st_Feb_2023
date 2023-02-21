@@ -5,7 +5,8 @@ interface TicTacToe{
 
     public void board();
 
-    void choose_letter();
+    void chooseLetter();
+    void displayBoard();
 }
 
 class TicTacToeService implements TicTacToe {
@@ -18,7 +19,7 @@ class TicTacToeService implements TicTacToe {
     }
 
     @Override
-    public void choose_letter() {
+    public void chooseLetter() {
 
         char player_input;
         char computer_input;
@@ -28,6 +29,15 @@ class TicTacToeService implements TicTacToe {
         player_input = sc.next().toUpperCase().charAt(0);
         computer_input= (player_input=='X')?'O':'X';
     }
+
+    @Override
+    public void displayBoard() {
+        System.out.println(board[1]+"||"+board[2]+"||"+board[3]);
+        System.out.println("-------");
+        System.out.println(board[4]+"||"+board[5]+"||"+board[6]);
+        System.out.println("-------");
+        System.out.println(board[7]+"||"+board[8]+"||"+board[9]);
+    }
 }
 
 
@@ -36,5 +46,10 @@ public class Main {
 
         System.out.println("---Welcome To The Tic Tac Toe Game---");
         System.out.println("--------------------------------------");
+        TicTacToeService play = new TicTacToeService();
+
+        play.board();
+        play.chooseLetter();
+        play.displayBoard();
     }
 }
