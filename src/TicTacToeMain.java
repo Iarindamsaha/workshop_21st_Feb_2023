@@ -1,9 +1,10 @@
+import java.util.Random;
 import java.util.Scanner;
 
 interface TicTacToeIF {
     static char[] board =new char[10];
 
-
+    int toss();
     void board();
     void chooseLetter();
     void displayBoard();
@@ -11,9 +12,25 @@ interface TicTacToeIF {
     void checkFreeSpace();
 }
 
-class TicTacToeIFService implements TicTacToeIF {
+class TicTacToeService implements TicTacToeIF {
     private char player_input;
     private char computer_input;
+
+    @Override
+    public int toss() {
+        Random random = new Random();
+        int check = random.nextInt(0,2);
+        int value_return;
+        if(check == 1){
+            System.out.println("Player plays First");
+            value_return=1;
+        }
+        else{
+            System.out.println("Computer Plays First");
+            value_return = 0;
+        }
+        return value_return;
+    }
 
     @Override
     public void board() {
@@ -83,11 +100,20 @@ public class TicTacToeMain {
 
         System.out.println("---Welcome To The Tic Tac Toe Game---");
         System.out.println("--------------------------------------");
-        TicTacToeIFService play = new TicTacToeIFService();
+        TicTacToeService play = new TicTacToeService();
+
+        //Creating The Board
 
         play.board();
         play.chooseLetter();
-        play.displayBoard();
+
+        //Tossing To See Which Player Will Play First
+
+        if(play.toss() == 1){
+            play.playerMove();
+            play.displayBoard();
+            play.checkFreeSpace();
+        }
         play.playerMove();
         play.displayBoard();
         play.checkFreeSpace();
