@@ -12,6 +12,7 @@ interface TicTacToeIF {
     void computerMove();
     void checkFreeSpace();
     void checkWinner();
+    void winnerWarning();
 }
 
 class TicTacToeService implements TicTacToeIF {
@@ -95,14 +96,15 @@ class TicTacToeService implements TicTacToeIF {
         boolean space = false;
         int remaining_space = 0;
 
-        for (int i = 1; i <= 9; i++) {
+        for (int i = 0; i < 10; i++) {
             if (board[i] == ' ') {
                 space = true;
                 remaining_space++;
             }
         }
         if (space == false) {
-            System.out.println("No more Space Available");
+            System.out.println("No more Space Available || Game is Draw");
+            System.exit(0);
         } else {
             System.out.println("Spaces Available= " + remaining_space);
         }
@@ -135,6 +137,60 @@ class TicTacToeService implements TicTacToeIF {
         }
     }
 
+    @Override
+    public void winnerWarning() {
+        if(     //first row check
+
+                board[1] == computer_input && board[2] == computer_input && board[3] == ' ' ||
+                        board[1] == ' ' && board[2] == computer_input && board[3] == computer_input ||
+                        board[1] == computer_input && board[2] == ' ' && board[3] == computer_input ||
+
+                        //first column
+
+                        board[1] == computer_input && board[4] == computer_input && board[7] == ' ' ||
+                        board[1] == ' ' && board[4] == computer_input && board[7] == computer_input ||
+                        board[1] == computer_input && board[4] == ' ' && board[7] == computer_input ||
+
+                        //second column check
+
+                        board[2] == computer_input && board[5] == computer_input && board[8] == ' ' ||
+                        board[2] == ' ' && board[5] == computer_input && board[8] == computer_input ||
+                        board[2] == computer_input && board[5] == ' ' && board[8] == computer_input ||
+
+                        //third column check
+
+                        board[3] == computer_input && board[6] == computer_input && board[9] == ' ' ||
+                        board[3] == ' ' && board[6] == computer_input && board[9] == computer_input ||
+                        board[3] == computer_input && board[6] == ' ' && board[9] == computer_input ||
+
+                        //for second row
+
+                        board[4] == computer_input && board[5] == computer_input && board[6] == ' '||
+                        board[4] == ' ' && board[5] == computer_input && board[6] == computer_input ||
+                        board[4] == computer_input && board[5] == ' ' && board[6] == computer_input||
+
+                        //for third row
+
+                        board[7] == computer_input && board[8] == computer_input && board[9] == ' '||
+                        board[7] == ' ' && board[8] == computer_input && board[9] == computer_input ||
+                        board[7] == computer_input && board[8] == ' ' && board[9] == computer_input ||
+
+                        // for corners
+
+                        board[1] == computer_input && board[5] == computer_input && board[9] == ' ' ||
+                        board[1] == ' ' && board[5] == computer_input && board[9] == computer_input ||
+                        board[1] == computer_input && board[5] == ' ' && board[9] == computer_input ||
+
+                        board[3] == computer_input && board[5] == computer_input && board[7] == ' ' ||
+                        board[3] == ' ' && board[5] == computer_input && board[7] == computer_input ||
+                        board[3] == computer_input && board[5] == ' ' && board[7] == computer_input
+
+
+        ){
+            System.out.println("Computer Can Almost Win the Game Play Carefully");
+        }
+    }
+
 
 }
 
@@ -160,6 +216,8 @@ public class TicTacToeMain {
         if(play.toss() == 1){
             play.playerMove();
             play.displayBoard();
+            play.computerMove();
+            play.displayBoard();
             play.checkFreeSpace();
         }
         else {
@@ -175,6 +233,7 @@ public class TicTacToeMain {
             play.displayBoard();
             play.checkFreeSpace();
             play.checkWinner();
+            play.winnerWarning();
 
 
         }
