@@ -8,11 +8,12 @@ interface TicTacToeIF {
     void chooseLetter();
     void displayBoard();
     void playerMove();
+    void checkFreeSpace();
 }
 
 class TicTacToeIFService implements TicTacToeIF {
-    char player_input;
-    char computer_input;
+    private char player_input;
+    private char computer_input;
 
     @Override
     public void board() {
@@ -55,6 +56,25 @@ class TicTacToeIFService implements TicTacToeIF {
         System.out.println("Player Move = "+"INDEX = "+players_move);
         board[players_move]=player_input;
     }
+
+    @Override
+    public void checkFreeSpace() {
+        boolean space = false;
+        int remaining_space = 0;
+
+        for(int i = 1; i<=9; i++){
+            if(board[i]==' '){
+                space=true;
+                remaining_space++;
+            }
+        }
+        if (space==false){
+            System.out.println("No more Space Available");
+        }
+        else{
+            System.out.println("Spaces Available= " + remaining_space);
+        }
+    }
 }
 
 
@@ -70,6 +90,7 @@ public class TicTacToeMain {
         play.displayBoard();
         play.playerMove();
         play.displayBoard();
+        play.checkFreeSpace();
 
     }
 }
